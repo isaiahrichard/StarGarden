@@ -10,24 +10,24 @@ remaining_health_symbol = "█"
 lost_health_symbol = "_"
 
 
-def display_resource_bars(entity):
-    health_color = colour.colour.red
-    if entity.health > 0.66 * entity.maxHealth:
+def display_resource_bars(entity) -> None:
+    health_color = colour.red
+    if entity.health > 0.66 * entity.max_health:
         health_color = colour.green
-    elif entity.health > 0.33 * entity.maxHealth:
+    elif entity.health > 0.33 * entity.max_health:
         health_color = colour.yellow
 
-    remaining_player_health = round(entity.health / entity.maxHealth * bars)
+    remaining_player_health = round(entity.health / entity.max_health * bars)
     lost_player_health = bars - remaining_player_health
-    remaining_player_mana = round(entity.mana / entity.maxMana * bars)
+    remaining_player_mana = round(entity.mana / entity.max_mana * bars)
     lost_player_mana = bars - remaining_player_mana
     print(f"{entity.name}: ")
     print(
-        f"{health_color}|{remaining_player_health * remaining_health_symbol}{lost_player_health * lost_health_symbol}|{entity.health}/{entity.maxHealth}{colour.default}\t{colour.blue}|{remaining_player_mana * remaining_health_symbol}{lost_player_mana * lost_health_symbol}|{entity.mana}/{entity.maxMana}{colour.default}"
+        f"{health_color}|{remaining_player_health * remaining_health_symbol}{lost_player_health * lost_health_symbol}|{entity.health}/{entity.max_health}{colour.default}\t{colour.blue}|{remaining_player_mana * remaining_health_symbol}{lost_player_mana * lost_health_symbol}|{entity.mana}/{entity.max_mana}{colour.default}"
     )
 
 
-def player_turn(player, enemy):
+def player_turn(player, enemy) -> str:
     clear()
     print("==============================")
     display_resource_bars(player)
@@ -54,7 +54,7 @@ def player_turn(player, enemy):
         if selected_move["damage"] < 0:
             delay_print(f"You healed {selected_move['damage']} HP")
             player.health = min(
-                player.health + selected_move["damage"], player.maxHealth
+                player.health + selected_move["damage"], player.max_health
             )
         else:
             delay_print(
@@ -77,7 +77,7 @@ def player_turn(player, enemy):
     return "continue"
 
 
-def enemy_turn(player, enemy):
+def enemy_turn(player, enemy) -> None:
     clear()
     print("==================")
     display_resource_bars(player)
@@ -88,7 +88,7 @@ def enemy_turn(player, enemy):
     enemy_move = random.choice(enemy_moves)
     if enemy_move["damage"] < 0:
         delay_print(f"{enemy.name} healed {enemy_move['damage']} HP")
-        enemy.health = min(enemy.health + enemy_move["damage"], enemy.maxHealth)
+        enemy.health = min(enemy.health + enemy_move["damage"], enemy.max_health)
     else:
         delay_print(
             f"{enemy.name} hit you with {enemy_move['name']} "
@@ -97,7 +97,7 @@ def enemy_turn(player, enemy):
         player.health -= enemy_move["damage"]
 
 
-def display_selectable_moves(player):
+def display_selectable_moves(player) -> str:
     print("==============================")
     for index, move in enumerate(player.moves, 1):
         print_colour = (

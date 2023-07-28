@@ -7,13 +7,13 @@ from data.info import moves, colour
 
 
 class Player:
-    def __init__(self, name, startingClass):
+    def __init__(self, name, starting_class):
         self.name = name
-        self.moves = [moves[0]] + [moves[i] for i in startingClass["attacks"]]
-        self.health = startingClass["health"]
-        self.maxHealth = startingClass["health"]
-        self.mana = startingClass["mana"]
-        self.maxMana = startingClass["mana"]
+        self.moves = [moves[0]] + [moves[i] for i in starting_class["attacks"]]
+        self.health = starting_class["health"]
+        self.max_health = starting_class["health"]
+        self.mana = starting_class["mana"]
+        self.max_mana = starting_class["mana"]
         self.items = {
             "health": {"value": 30, "count": 4},
             "mana": {"value": 10, "count": 0},
@@ -51,10 +51,10 @@ class Player:
         if self.items[item]["count"]:
             if item == "health":
                 self.health = min(
-                    self.health + self.items[item]["value"], self.maxHealth
+                    self.health + self.items[item]["value"], self.max_health
                 )
             elif item == "mana":
-                self.mana = min(self.mana + self.items[item]["value"], self.maxMana)
+                self.mana = min(self.mana + self.items[item]["value"], self.max_mana)
             self.items[item]["count"] -= 1
         else:
             delay_print("Please select an item you have")
@@ -70,12 +70,12 @@ class Player:
             delay_print("Choose an upgrade")
             selection = display_selectable_list(["+10 health", "+5 mana"])
             if selection == "1":
-                self.maxHealth += 10
+                self.max_health += 10
             elif selection == "2":
-                self.maxMana += 5
+                self.max_mana += 5
 
-            self.health = self.maxHealth
-            self.mana = self.maxMana
+            self.health = self.max_health
+            self.mana = self.max_mana
 
             if not self.level % 5:
                 delay_print("Choose a new attack to learn")
@@ -95,9 +95,9 @@ class Enemy:
         self.name = enemy["name"]
         self.moves = [moves[0]] + [moves[i] for i in enemy["attacks"]]
         self.health = enemy["health"]
-        self.maxHealth = enemy["health"]
+        self.max_health = enemy["health"]
         self.mana = enemy["mana"]
-        self.maxMana = enemy["mana"]
+        self.max_mana = enemy["mana"]
 
 
 class Planet:

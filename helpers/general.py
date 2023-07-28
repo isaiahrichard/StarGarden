@@ -15,16 +15,16 @@ def display_planet_info(planet, index):
     print()
 
 
-def display_class_info(gameClass, index):
+def display_class_info(game_class, index):
     sleep(0.5)
-    delay_print(f"{index}. {gameClass['name']}: ")
+    delay_print(f"{index}. {game_class['name']}: ")
     sleep(0.25)
-    print(f"\tHealth: {gameClass['health']}")
+    print(f"\tHealth: {game_class['health']}")
     sleep(0.25)
     print("\tStarting Moves:")
     sleep(0.25)
-    for moveIndex in gameClass["attacks"]:
-        move = moves[moveIndex]
+    for move_index in game_class["attacks"]:
+        move = moves[move_index]
         print(
             f"\t\t{move['name']} ({colour.red}{move['damage']}{colour.default}|{colour.blue}{move['mana_cost']}{colour.default})"
         )

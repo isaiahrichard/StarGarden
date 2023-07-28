@@ -26,18 +26,18 @@ player = None
 
 def select_class():
     print("Choose your class")
-    validClass = False
-    startingClass = 0
-    while not validClass:
-        for index, charClass in enumerate(classes, 1):
-            display_class_info(charClass, index)
-        startingClass = int(star_input("Choose your starting class: ")) - 1
-        if startingClass > -1 and startingClass < len(classes):
-            validClass = True
+    valid_class = False
+    starting_class = 0
+    while not valid_class:
+        for index, char_class in enumerate(classes, 1):
+            display_class_info(char_class, index)
+        starting_class = int(star_input("Choose your starting class: ")) - 1
+        if starting_class > -1 and starting_class < len(classes):
+            valid_class = True
         else:
             print("Invalid class selection, try again")
-    delay_print(f"You selected {classes[startingClass]['name']}")
-    return classes[startingClass]
+    delay_print(f"You selected {classes[starting_class]['name']}")
+    return classes[starting_class]
 
 
 def generate_planets():
@@ -48,8 +48,8 @@ def generate_planets():
 
 
 def create_enemy(index):
-    enemyObj = enemyList[index]
-    return Enemy(enemy=enemyObj)
+    enemy_obj = enemyList[index]
+    return Enemy(enemy=enemy_obj)
 
 
 def generate_shopkeeper_inventory():
@@ -85,8 +85,8 @@ def explore_landscape():
 
 
 def encounter_enemy():
-    enemyIndex = random.randrange(len(enemyList))
-    enemy = create_enemy(enemyIndex)
+    enemy_index = random.randrange(len(enemyList))
+    enemy = create_enemy(enemy_index)
     player.fight(enemy, current_planet)
 
 
@@ -116,14 +116,14 @@ def find_shopkeeper():
     )
     if selection == "1":
         buying = True
-        shopInventory = generate_shopkeeper_inventory()
+        shop_inventory = generate_shopkeeper_inventory()
         while buying:
             selected_item = (
-                "health" if display_selectable_items(shopInventory) == "1" else "mana"
+                "health" if display_selectable_items(shop_inventory) == "1" else "mana"
             )
             delay_print(f"Purchased {selected_item.capitalize()} potion")
             player.add_item(selected_item)
-            shopInventory[selected_item]["count"] -= 1
+            shop_inventory[selected_item]["count"] -= 1
             delay_print("Continue shopping?")
             continue_val = display_selectable_list(["Yes", "No"], delayed=True)
             if continue_val == "2":
@@ -146,7 +146,7 @@ if __name__ == "__main__":
     playerName = star_input("Enter your characters name: ")
     clear()
     classObj = select_class()
-    player = Player(name=playerName, startingClass=classObj)
+    player = Player(name=playerName, starting_class=classObj)
     generate_planets()
     intro()
     while True:
